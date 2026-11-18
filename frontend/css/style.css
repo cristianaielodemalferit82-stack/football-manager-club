@@ -2,5 +2,31 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f3f4f6;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #15803D;
+}
+
+#btnJugador {
+    background-color: #15803D;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#btnJugador:hover {
+    background-color: #166534;
+}
+
+.jugador {
+    background-color: white;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
