@@ -1,8 +1,15 @@
+/* ===== Estilos generales ===== */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f3f4f6;
     margin: 0;
     padding: 20px;
+}
+
+main {
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 header {
@@ -16,6 +23,8 @@ header {
 h1 {
     margin: 0;
 }
+
+/* ===== Botón añadir jugador ===== */
 
 #btnJugador {
     background-color: #2563EB;
@@ -31,23 +40,125 @@ h1 {
     background-color: #1D4ED8;
 }
 
+/* ===== Formulario ===== */
+
+.oculto {
+    display: none !important;
+}
+
+#formJugador {
+    background-color: white;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+#formJugador h2 {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: #15803D;
+}
+
+#formJugador label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-weight: bold;
+    color: #374151;
+}
+
+#formJugador input,
+#formJugador select {
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#formJugador input:focus,
+#formJugador select:focus {
+    outline: none;
+    border-color: #2563EB;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.acciones-form {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+}
+
+.acciones-form button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+}
+
+.acciones-form button[type="submit"] {
+    background-color: #15803D;
+}
+
+.acciones-form button[type="submit"]:hover {
+    background-color: #166534;
+}
+
+#btnCancelar {
+    background-color: #6b7280;
+}
+
+#btnCancelar:hover {
+    background-color: #4b5563;
+}
+
+/* ===== Mensajes ===== */
+
+#mensaje {
+    margin: 15px 0 0;
+    font-weight: bold;
+}
+
+#mensaje.ok {
+    color: #15803D;
+}
+
+#mensaje.error {
+    color: #DC2626;
+}
+
+/* ===== Lista de jugadores ===== */
+
 #jugadores {
     margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
 }
 
 .jugador {
     background-color: white;
     padding: 15px;
-    margin-bottom: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .jugador h3 {
     color: #15803D;
+    margin-top: 0;
+}
+
+.jugador p {
+    margin: 5px 0;
 }
 
 .jugador button {
+    margin-top: 10px;
     margin-right: 10px;
     padding: 8px 12px;
     border: none;
@@ -60,7 +171,27 @@ h1 {
     color: white;
 }
 
+.jugador button:first-of-type:hover {
+    background-color: #1D4ED8;
+}
+
 .jugador button:last-of-type {
     background-color: #DC2626;
     color: white;
+}
+
+.jugador button:last-of-type:hover {
+    background-color: #B91C1C;
+}
+
+/* ===== Móvil ===== */
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    #btnJugador {
+        width: 100%;
+    }
 }
