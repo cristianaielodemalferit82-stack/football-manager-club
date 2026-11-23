@@ -90,3 +90,76 @@ async function cargarJugadores() {
     try {
         const respuesta = await fetch(API_URL);
         const jugadores = await respuesta.json();
+
+        listaJugadores.innerHTML = "";
+
+        if (jugadores.length === 0) {
+            listaJugadores.innerHTML = "<p>Todavía no hay jugadores. ¡Añade el primero!</p>";
+            return;
+        }
+
+        jugadores.forEach((jugador) => {
+            listaJugadores.appendChild(crearTarjeta(jugador));
+        });
+    } catch (error) {
+        mostrarMensaje("No se ha podido conectar con el servidor", true);
+    }
+}
+
+// CREATE y UPDATE: guardar el formulario
+async function guardarJugador(evento) {
+    evento.preventDefault();
+
+    const jugador = {};
+    campos.forEach((campo) => {
+        const valor = document.getElementById(campo).value.trim();
+        if (valor !== "") jugador[campo] = valor;
+    });
+
+    const url = idEditando ? `${API_URL}/${idEditando}` : API_URL;
+    const metodo = idEditando ? "PUT" : "POST";
+
+    try {
+        const respuesta = await fetch(url, {
+            method: metodo,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jugador),
+        });
+
+        if (!respuesta.ok) {
+            const error = await respuesta.json();
+            throw new Error(error.detalle || error.mensaje);
+        }
+
+        mostrarMensaje(idEditando ? "Jugador actualizado" : "Jugador añadido");
+        cerrarFormulario();
+        cargarJugadores();
+    } catch (error) {
+        mostrarMensaje(`Error al guardar: ${error.message}`, true);
+    }
+}
+
+// DELETE: eliminar un jugador
+async function eliminarJugador(jugador) {
+    const confirmar = confirm(`¿Seguro que quieres eliminar a ${jugador.nombre} ${jugador.apellidos}?`);
+    if (!confirmar) return;
+
+    try {
+        const respuesta = await fetch(`${API_URL}/${jugador._id}`, { method: "DELETE" });
+        if (!respuesta.ok) throw new Error();
+
+        mostrarMensaje("Jugador eliminado");
+        cargarJugadores();
+    } catch (error) {
+        mostrarMensaje("Error al eliminar el jugador", true);
+    }
+}
+
+// ---------- Eventos ----------
+
+boton.addEventListener("click", () => abrirFormulario());
+btnCancelar.addEventListener("click", cerrarFormulario);
+form.addEventListener("submit", guardarJugador);
+
+// Al abrir la página, cargar los jugadores
+cargarJugadores();
